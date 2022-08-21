@@ -24,7 +24,7 @@ function addTodoList(index, todo) {
 
     const buttonDone = document.createElement("input");
     buttonDone.type = "button";
-    buttonDone.value = "Done";
+    buttonDone.value = "Delete";
     buttonDone.onclick = function() {
         removeTodoList(index)
     }
@@ -32,12 +32,9 @@ function addTodoList(index, todo) {
 
     const tdTodo = document.createElement("td");
 
-    let isi = tdTodo.textContent;
-    if (isi == 0) {
-        alert(`Isi tidak boleh kosong!`)
-    } else {
-        tdTodo.textContent = todo
-    }
+    tdTodo.textContent = todo
+
+
 
     tr.appendChild(tdTodo);
 
@@ -67,7 +64,13 @@ document.forms['todoForm'].onsubmit = function(event) {
     event.preventDefault();
 
     const todo = document.forms['todoForm']['todo'].value;
-    todoList.push(todo);
+
+    if (todo.length == 0) {
+        alert("Isi tidak boleh kosong!");
+        return false;
+    } else {
+        todoList.push(todo);
+    }
 
     document.forms['todoForm'].reset();
 
@@ -75,7 +78,6 @@ document.forms['todoForm'].onsubmit = function(event) {
 };
 
 const search = document.getElementById("search");
-
 
 search.onkeyup = function() {
     displayTodolist()
